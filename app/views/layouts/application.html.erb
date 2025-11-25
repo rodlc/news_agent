@@ -1,8 +1,14 @@
 <!DOCTYPE html>
+
 <html>
   <head>
     <title>NewsAgent</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    >
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -11,6 +17,15 @@
   </head>
 
   <body>
-    <%= yield %>
+    <%= link_to "Skip to main content", "#main-content", class: "visually-hidden-focusable" %>
+
+    <header>
+      <%= render "shared/navbar" %>
+      <%= render "shared/flashes" %>
+
+      <!-- 👈 Add this for navbar -->
+    </header>
+
+    <main id="main-content"><%= yield %></main>
   </body>
 </html>
