@@ -19,11 +19,13 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
         <% if user_signed_in? %>
-          <li class="nav-item active">
-            <%= link_to "Home", "#", class: "nav-link" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Messages", "#", class: "nav-link" %>
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <span class="nav-link">Bienvenue <%= current_user.email %></span>
+            </li>
+          </ul>
+          <li class="text-center">
+            <%= link_to "New Chat +", chats_path, method: :post, class: "btn btn-primary" %>
           </li>
           <li class="nav-item dropdown">
             <a
@@ -34,7 +36,7 @@
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar", alt: "dropdown menu" %>
+              <%= image_tag "avatar.png", class: "avatar", alt: "dropdown menu" %>
             </a>
 
             <div

@@ -1,2 +1,41 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<% if user_signed_in? %>
+  <div class="d-flex align-items-center ms-5" style="height: 100px;">
+    <h1>Mon Dashboard</h1>
+  </div>
+  <div>
+    <h2 class="ms-2">Liste de vos précedentes recherches</h2>
+  </div>
+  <div class="card ms-3" style="width: 18rem;">
+    <img
+      src="https://cdn.generationvoyage.fr/2020/04/journaux-britanniques-et-am%C3%A9ricains.jpg"
+      class="card-img-top"
+      alt="..."
+    >
+
+    <div class="card-body">
+      <h5 class="card-title">Résumé du 25/11/2025</h5>
+
+      <p class="card-text">
+        On plante des Arbres. La France va bien... 🌴🌴🌴
+      </p>
+
+      <%= link_to "Ouvrir le Daily", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% else %>
+  <div class="d-flex flex-column justify-content-center align-items-center">
+    <div>
+      <h1>Bienvenue sur NewsAgent</h1>
+    </div>
+
+    <div>
+      <h4 class="d-flex m-2">
+        Pour utiliser notre chat, connectez-vous, ou créez vous un compte
+      </h4>
+    </div>
+
+    <div class="m-2 text-center mb-8">
+      <%= link_to "Sign Up", new_user_session_path, class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
