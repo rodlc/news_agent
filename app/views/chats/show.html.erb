@@ -32,6 +32,9 @@
                 rows: 2,
                 required: true %>
             <%= f.submit "Envoyer", class: "btn btn-primary", style: "height: fit-content;" %>
+            <%= link_to "Créer un Daily", new_chat_daily_path(@chat), 
+              class: "btn btn-primary",
+              data: { turbo_frame: "modal" } %>
           <% end %>
         </div>
       </div>

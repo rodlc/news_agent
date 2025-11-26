@@ -1,8 +1,0 @@
-<h1><%= @daily&.title || "No Daily Summary Yet" %></h1>
-
-<p><%= @daily&.summary || "No summary available." %></p>
-
-<% if @daily %>
-  <button>Approve</button>
-  <button>Reject, Adjust</button>
-<% end %>

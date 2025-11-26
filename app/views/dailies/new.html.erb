@@ -1,0 +1,15 @@
+<h1>Nouveau Daily</h1>
+
+<%= form_with model: @daily, url: chat_dailies_path(@chat) do |f| %>
+  <div class="mb-3">
+    <%= f.label :title, "Titre" %>
+    <%= f.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :content, "Contenu" %>
+    <%= f.text_area :content, rows: 10, class: "form-control" %>
+  </div>
+
+  <%= f.submit "Créer le Daily", class: "btn btn-success" %>
+<% end %>
