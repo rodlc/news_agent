@@ -4,22 +4,20 @@ class DailiesController < ApplicationController
   def new
     @last_message = @chat.messages.order(created_at: :desc).first
     
-    # On crée une instance vide en mémoire
-    @daily = Daily.new(content: @last_message&.content)
+    # On mappe le contenu du message vers le champ 'summary' du Daily
+    @daily = Daily.new(summary: @last_message&.content)
   end
 
   def create
-    # 1. On crée le daily avec les données du formulaire
     @daily = Daily.new(daily_params)
     
     if @daily.save
-      # 2. Si le daily est sauvé, on l'associe au chat
+      # On déplace le chat vers ce nouveau daily
       @chat.daily = @daily
       @chat.save
       
-      redirect_to @daily, notice: "Daily créé avec succès."
+      redirect_to @daily, notice: "Nouveau Daily créé et associé."
     else
-      # Si ça échoue, on ré-affiche le formulaire
       @last_message = @chat.messages.order(created_at: :desc).first
       render :new, status: :unprocessable_entity
     end
@@ -32,6 +30,7 @@ class DailiesController < ApplicationController
   end
 
   def daily_params
-    params.require(:daily).permit(:content, :title)
+    # On autorise :summary et :title
+    params.require(:daily).permit(:summary, :title)
   end
 end
