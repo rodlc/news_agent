@@ -1,25 +1,33 @@
 <div class="container my-5 daily-edit">
   <div class="row">
-    <div class="col-md-8 offset-md-2">
-      <div class="card shadow-sm">
-        <div class="card-header bg-primary text-white">
-          <h3 class="mb-0">Modifier le résumé</h3>
+    <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+      <div class="card">
+        <div class="card-header">
+          <h3>Modifier le résumé</h3>
         </div>
 
         <div class="card-body">
           <%= form_with model: @daily, local: true do |f| %>
             <div class="mb-3">
               <%= f.label :title, "Titre", class: "form-label" %>
-              <%= f.text_field :title, class: "form-control", placeholder: "Ex: Résumé du 27/11/2025" %>
+              <%= f.text_field :title,
+                  class: "form-control",
+                  placeholder: "Ex: Résumé du 27/11/2025",
+                  autofocus: true %>
             </div>
 
             <div class="mb-3">
               <%= f.label :summary, "Résumé", class: "form-label" %>
-              <%= f.text_area :summary, rows: 10, class: "form-control", placeholder: "Entrez le résumé de votre actualité..." %>
+              <%= f.text_area :summary,
+                  class: "form-control",
+                  placeholder: "Entrez le résumé de votre actualité...",
+                  rows: 12 %>
             </div>
 
             <div class="d-flex justify-content-between align-items-center">
-              <%= link_to "← Mes résumés", dailies_path, class: "btn btn-outline-secondary" %>
+              <%= link_to dailies_path, class: "btn btn-outline-secondary" do %>
+                ← Mes résumés
+              <% end %>
 
               <div>
                 <%= link_to "Annuler", dailies_path, class: "btn btn-secondary me-2" %>
