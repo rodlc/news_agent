@@ -1,33 +1,207 @@
+// ============================================================
+// NAVBAR - Modern, Clean Design
+// ============================================================
+// Strategy: Remove heavy colors, increase whitespace, subtle borders
+
 .navbar-lewagon {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #ffffff;
-  height: 80px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-  border-bottom: 1px solid #d1d1d6;
+  background: var(--bg-primary);
+  min-height: 80px;
+  padding: 1rem 0;
+  box-shadow: var(--shadow-sm);
+  border-bottom: 1px solid var(--border-light);
+  transition: box-shadow var(--transition-base);
+
+  &:hover {
+    box-shadow: var(--shadow-md);
+  }
 }
 
 .navbar-lewagon .navbar-collapse {
   flex-grow: 1;
 }
 
-.navbar-lewagon .navbar-brand img {
-  width: 60px;
-}
-
-.navbar-lewagon .avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.navbar-lewagon .navbar-nav {
-  align-items: center;
-}
-
-.navbar-lewagon .nav-link {
+// Logo/Brand - Text-based, bold
+.navbar-lewagon .navbar-brand {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  transition: color var(--transition-fast);
   display: flex;
   align-items: center;
+  gap: 0.5rem;
+
+  &:hover {
+    color: var(--primary-600);
+  }
+
+  img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+  }
+}
+
+// Welcome text - Make it prominent
+.navbar-lewagon .navbar-nav .nav-item .nav-link {
+  display: flex;
+  align-items: center;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  padding: 0.5rem 1rem;
+  transition: color var(--transition-fast);
+
+  &:hover {
+    color: var(--text-primary);
+  }
+}
+
+// "Nouveau résumé" button - Only colored element
+.navbar-lewagon .btn-primary {
+  background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
+  color: #ffffff;
+  border: none;
+  font-weight: 600;
+  padding: 0.625rem 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 16px -4px rgba(99, 102, 241, 0.3);
+    background: linear-gradient(135deg, var(--primary-700) 0%, var(--primary-800) 100%);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+  }
+}
+
+// Avatar
+.navbar-lewagon .avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--border-default);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--primary-500);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  }
+}
+
+// Dropdown menu
+.navbar-lewagon .dropdown-menu {
+  border: 1px solid var(--border-default);
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-lg);
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  min-width: 200px;
+
+  .dropdown-item {
+    border-radius: 0.5rem;
+    padding: 0.625rem 1rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: all var(--transition-fast);
+
+    &:hover {
+      background-color: var(--gray-50);
+      color: var(--text-primary);
+    }
+
+    &:active {
+      background-color: var(--primary-50);
+      color: var(--primary-700);
+    }
+  }
+}
+
+// Navbar alignment
+.navbar-lewagon .navbar-nav {
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.navbar-lewagon .navbar-nav.ms-auto {
+  margin-left: auto !important;
+}
+
+// Mobile responsive
+@media (max-width: 576px) {
+  .navbar-lewagon {
+    min-height: 70px;
+  }
+
+  .navbar-lewagon .navbar-brand {
+    font-size: 1.25rem;
+  }
+
+  .navbar-lewagon .btn-primary {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  .navbar-lewagon .avatar {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+// Navbar toggler (mobile menu icon)
+.navbar-toggler {
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: background-color var(--transition-fast);
+
+  &:hover {
+    background-color: var(--gray-50);
+  }
+
+  &:focus {
+    box-shadow: var(--focus-ring);
+    outline: none;
+  }
+
+  .navbar-toggler-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+// Collapse animation
+.navbar-collapse {
+  transition: height var(--transition-base);
+
+  @media (max-width: 575px) {
+    padding-top: 1rem;
+
+    .navbar-nav {
+      gap: 0.5rem;
+    }
+
+    .nav-item {
+      width: 100%;
+
+      .btn-primary {
+        width: 100%;
+      }
+    }
+  }
 }

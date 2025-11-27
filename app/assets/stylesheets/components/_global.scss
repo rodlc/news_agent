@@ -1,130 +1,364 @@
-// Styles globaux pour l'application
+// ============================================================
+// GLOBAL STYLES - Modern, Elegant Design System
+// ============================================================
+// Strategy: Soft borders, generous whitespace, subtle shadows
 
 body {
-  background-color: #e5e5ea;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  color: #1c1c1e;
+  background-color: var(--bg-secondary);
+  font-family: $body-font;
+  color: var(--text-primary);
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 main {
   min-height: calc(100vh - 80px);
 }
 
-// Amélioration des cards
-.card {
-  border-radius: 0.75rem;
-  overflow: hidden;
-  background-color: #ffffff;
-  border: 1px solid #d1d1d6;
-
-  .card-header {
-    font-weight: 600;
-    background-color: #f2f2f7;
-    border-bottom: 1px solid #d1d1d6;
-  }
-
-  .card-body {
-    line-height: 1.7;
-    background-color: #ffffff;
-  }
-
-  .card-footer {
-    background-color: #f2f2f7;
-    border-top: 1px solid #d1d1d6;
-  }
-}
-
-// Amélioration des boutons
-.btn {
-  border-radius: 0.5rem;
-  font-weight: 500;
-}
-
-.btn-lg {
-  padding: 0.75rem 2rem;
-  font-size: 1.1rem;
-}
-
-// Amélioration des titres
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 600;
-  color: #1c1c1e;
-}
-
-h1 {
-  font-size: 2.5rem;
-
-  @media (max-width: 768px) {
-    font-size: 2rem;
-  }
-}
-
-// Amélioration des liens
-a {
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-// Amélioration des ombres
-.shadow-sm {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08) !important;
-}
-
-.shadow {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
-}
-
-// Container responsive
+// Container improvements
 .container {
+  animation: fadeIn 0.4s ease-out;
+
   @media (min-width: 1200px) {
     max-width: 1140px;
   }
 }
 
-// Espacement
+// ============================================================
+// CARDS - Apple-style, soft and elevated
+// ============================================================
+
+.card {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-default);
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--border-medium);
+  }
+
+  // Card header - Clean, no heavy colors
+  .card-header {
+    padding: 1.5rem;
+    background-color: var(--bg-primary);
+    border-bottom: 1px solid var(--border-light);
+    font-weight: 600;
+    font-size: 1.125rem;
+    color: var(--text-primary);
+  }
+
+  // Card body - Generous padding
+  .card-body {
+    padding: 1.5rem;
+    background-color: var(--bg-primary);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
+  // Card footer
+  .card-footer {
+    padding: 1rem 1.5rem;
+    background-color: var(--bg-secondary);
+    border-top: 1px solid var(--border-light);
+  }
+
+  // Card title
+  .card-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  // Card text
+  .card-text {
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  // Card image
+  .card-img-top {
+    transition: opacity var(--transition-base);
+  }
+
+  &:hover .card-img-top {
+    opacity: 0.95;
+  }
+}
+
+// ============================================================
+// BUTTONS - Hierarchy and clarity
+// ============================================================
+
+.btn {
+  font-weight: 600;
+  border-radius: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  transition: all var(--transition-base);
+  border: none;
+  font-size: 0.9375rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+  }
+}
+
+// Primary button - The ONLY colored button
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
+  color: #ffffff;
+  border: none;
+  box-shadow: var(--shadow-sm);
+
+  &:hover {
+    background: linear-gradient(135deg, var(--primary-700) 0%, var(--primary-800) 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 16px -4px rgba(99, 102, 241, 0.3);
+    color: #ffffff;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Secondary button - Ghost style
+.btn-secondary {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-medium);
+
+  &:hover {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-medium);
+  }
+}
+
+// Outline secondary - Even lighter
+.btn-outline-secondary {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-default);
+  font-weight: 600;
+
+  &:hover {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-medium);
+  }
+}
+
+// Success button - Use sparingly
+.btn-success {
+  background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+  color: #ffffff;
+  border: none;
+  box-shadow: var(--shadow-sm);
+
+  &:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 16px -4px rgba(16, 185, 129, 0.3);
+    color: #ffffff;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Danger button
+.btn-danger,
+.btn-outline-danger {
+  background: transparent;
+  color: var(--danger);
+  border: 1px solid var(--danger);
+  font-weight: 600;
+
+  &:hover {
+    background-color: var(--danger);
+    color: #ffffff;
+    border-color: var(--danger);
+  }
+}
+
+// Button sizes
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.btn-lg {
+  padding: 0.875rem 2rem;
+  font-size: 1.0625rem;
+  border-radius: 0.625rem;
+}
+
+// ============================================================
+// FORMS - Modern inputs with focus states
+// ============================================================
+
+.form-label {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  font-size: 0.9375rem;
+}
+
+.form-control {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-default);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  color: var(--text-primary);
+  font-size: 0.9375rem;
+  transition: all var(--transition-fast);
+
+  &::placeholder {
+    color: var(--text-muted);
+  }
+
+  &:focus {
+    background-color: var(--bg-primary);
+    border-color: var(--primary-600);
+    color: var(--text-primary);
+    box-shadow: var(--focus-ring);
+    outline: none;
+  }
+
+  &:disabled {
+    background-color: var(--bg-secondary);
+    color: var(--text-muted);
+    cursor: not-allowed;
+  }
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 120px;
+}
+
+// ============================================================
+// TYPOGRAPHY UTILITIES
+// ============================================================
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+h1 {
+  font-size: 2.25rem;
+  letter-spacing: -0.02em;
+
+  @media (max-width: 768px) {
+    font-size: 1.875rem;
+  }
+}
+
+h2 {
+  font-size: 1.875rem;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+// Lead text
+.lead {
+  font-size: 1.25rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+// Text utilities
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+.text-primary {
+  color: var(--primary-600) !important;
+}
+
+// ============================================================
+// BACKGROUNDS
+// ============================================================
+
+.bg-light {
+  background-color: var(--bg-secondary) !important;
+}
+
+.bg-white {
+  background-color: var(--bg-primary) !important;
+}
+
+// ============================================================
+// SHADOWS
+// ============================================================
+
+.shadow-sm {
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.shadow {
+  box-shadow: var(--shadow-md) !important;
+}
+
+.shadow-lg {
+  box-shadow: var(--shadow-lg) !important;
+}
+
+// ============================================================
+// SPACING
+// ============================================================
+
 .my-5 {
   margin-top: 3rem !important;
   margin-bottom: 3rem !important;
 }
 
-// Amélioration du texte muted
-.text-muted {
-  color: #8e8e93 !important;
+.mb-4 {
+  margin-bottom: 1.5rem !important;
 }
 
-// Light theme specific styles
-.bg-light {
-  background-color: #f2f2f7 !important;
+.mt-3 {
+  margin-top: 1rem !important;
 }
 
-.bg-white {
-  background-color: #ffffff !important;
-}
+// ============================================================
+// BORDERS
+// ============================================================
 
 .border {
-  border-color: #d1d1d6 !important;
+  border: 1px solid var(--border-default) !important;
 }
 
-// Form controls
-.form-control {
-  background-color: #ffffff;
-  border-color: #d1d1d6;
-  color: #1c1c1e;
-
-  &:focus {
-    background-color: #ffffff;
-    border-color: #4a90e2;
-    color: #1c1c1e;
-    box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
-  }
-
-  &::placeholder {
-    color: #8e8e93;
-  }
+.border-0 {
+  border: 0 !important;
 }
 
-// Animation fade-in pour les pages
+// ============================================================
+// ANIMATIONS
+// ============================================================
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -136,6 +370,45 @@ a {
   }
 }
 
-.container {
-  animation: fadeIn 0.4s ease-out;
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ============================================================
+// UTILITIES
+// ============================================================
+
+// Gap utilities
+.gap-3 {
+  gap: 1rem !important;
+}
+
+.gap-4 {
+  gap: 1.5rem !important;
+}
+
+// Rounded corners
+.rounded {
+  border-radius: 0.5rem !important;
+}
+
+.rounded-lg {
+  border-radius: 1rem !important;
+}
+
+// Cursor
+.cursor-pointer {
+  cursor: pointer;
+}
+
+// Transitions
+.transition-all {
+  transition: all var(--transition-base);
 }
