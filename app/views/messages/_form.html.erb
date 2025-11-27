@@ -29,17 +29,21 @@
           class: "btn btn-outline-secondary ms-2",
           style: "height: fit-content;" %>
     <% else %>
-      <button
-        type="button"
-        class="btn btn-outline-secondary ms-2 disabled"
-        style="height: fit-content;"
-        title="Pas d'historique pour générer un résumé"
+      <span
+        class="d-inline-block"
         data-bs-toggle="tooltip"
         data-bs-placement="top"
-        disabled
+        title="Pas d'historique pour générer un résumé"
       >
-        Générer le résumé
-      </button>
+        <button
+          type="button"
+          class="btn btn-outline-secondary ms-2"
+          style="height: fit-content; pointer-events: none;"
+          disabled
+        >
+          Générer le résumé
+        </button>
+      </span>
     <% end %>
   <% end %>
 <% end %>

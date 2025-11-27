@@ -39,11 +39,6 @@ main {
 .btn {
   border-radius: 0.5rem;
   font-weight: 500;
-  transition: all 0.2s ease;
-
-  &:active {
-    transform: scale(0.98);
-  }
 }
 
 .btn-lg {
