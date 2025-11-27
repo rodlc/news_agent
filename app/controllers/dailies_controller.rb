@@ -19,7 +19,14 @@ class DailiesController < ApplicationController
     )
 
     if @daily.save
-      redirect_to edit_daily_path(@daily), notice: "Nouveau résumé créé ! Modifiez-le selon vos besoins."
+      # Créer un chat vide pour commencer à itérer
+      chat = Chat.create!(
+        name: "Discussion #{Time.zone.now.strftime('%H:%M')}",
+        daily: @daily,
+        user: current_user
+      )
+
+      redirect_to chat_path(chat), notice: "Nouveau résumé créé ! Commencez à discuter pour générer votre résumé."
     else
       redirect_to root_path, alert: "Erreur lors de la création du résumé"
     end
