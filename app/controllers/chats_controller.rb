@@ -5,7 +5,7 @@ class ChatsController < ApplicationController
 
   def create
     @chat = current_user.chats.build(chat_params)
-    
+
     if @chat.save
       redirect_to chat_path(@chat), notice: "Chat créé !"
     else
@@ -14,7 +14,9 @@ class ChatsController < ApplicationController
   end
 
   def show
-    @message = Message.new
+    set_chat
+    # @message = Message.new
+    @message = @chat.message.build
   end
 
   private
