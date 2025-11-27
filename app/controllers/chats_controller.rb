@@ -4,7 +4,7 @@ class ChatsController < ApplicationController
   before_action :set_chat, only: [:show]
 
   def create
-    @chat = current_user.chats.build(chat_params)
+    @chat = Chat.new(user: current_user, **chat_params)
 
     if @chat.save
       redirect_to chat_path(@chat), notice: "Chat créé !"
@@ -15,8 +15,7 @@ class ChatsController < ApplicationController
 
   def show
     set_chat
-    # @message = Message.new
-    @message = @chat.message.build
+    @message = Message.new(chat: @chat)
   end
 
   private
