@@ -1,43 +1,35 @@
-require 'ostruct'
-
 class MessagesController < ApplicationController
   before_action :authenticate_user!
 
   def create
     @chat = Chat.find(params[:chat_id])
-
-    unless @chat.user == current_user
-      redirect_to root_path, alert: "Accès refusé"
-      return
-    end
-
-    @message = @chat.messages.build(message_params)
+    @message = @chat.messages.new(message_params)
     @message.direction = "user"
 
     if @message.save
-      begin
-        @ruby_llm_chat = RubyLLM.chat(model: "gpt-4o")
-        @ruby_llm_chat = @ruby_llm_chat.with_instructions "Your name is Newsagent: a helpful assistant explaining news simply, like to a high school student, providing historical context to help understand events better."
+      # Traiter l'API de manière synchrone (simple et direct)
+      assistant_message = process_ai_response
 
-        # Construction historique
-        @chat.messages.where.not(id: @message.id).order(:created_at).each do |msg|
-          role = msg.direction == "user" ? "user" : "assistant"
-          @ruby_llm_chat.messages << OpenStruct.new(role: role, content: msg.content)
+      respond_to do |format|
+        format.turbo_stream do
+          # Ajouter la réponse de l'assistant et reset du form
+          # (Le loading est supprimé côté client par Stimulus)
+          render turbo_stream: [
+            turbo_stream.append("messages", partial: "messages/message", locals: { message: assistant_message }),
+            turbo_stream.replace("message_form", partial: "messages/form", locals: { chat: @chat, message: Message.new })
+          ]
         end
-
-        response = @ruby_llm_chat.ask(@message.content)
-
-        @chat.messages.create!(
-          content: response.content,
-          direction: "assistant"
-        )
-
-        redirect_to chat_path(@chat), notice: "Message envoyé !"
-      rescue => e
-        redirect_to chat_path(@chat), alert: "Erreur API : #{e.message}"
       end
     else
-      redirect_to chat_path(@chat), alert: "Message vide impossible"
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace(
+            "message_form",
+            partial: "messages/form",
+            locals: { chat: @chat, message: @message }
+          )
+        end
+      end
     end
   end
 
@@ -45,5 +37,36 @@ class MessagesController < ApplicationController
 
   def message_params
     params.require(:message).permit(:content)
+  end
+
+  def process_ai_response
+    ruby_llm_chat = RubyLLM.chat(model: "gpt-4o")
+    ruby_llm_chat = ruby_llm_chat.with_instructions(
+      "Your name is Newsagent: a helpful assistant explaining news simply, like to a high school student, providing historical context to help understand events better."
+    )
+
+    # Construction de l'historique des messages
+    @chat.messages.where.not(id: @message.id).order(:created_at).each do |msg|
+      if msg.direction == "user"
+        ruby_llm_chat.add_message(role: :user, content: msg.content)
+      else
+        ruby_llm_chat.add_message(role: :assistant, content: msg.content)
+      end
+    end
+
+    # Appel à l'API
+    response = ruby_llm_chat.ask(@message.content)
+
+    # Créer et retourner le message de l'assistant
+    @chat.messages.create!(
+      content: response.content,
+      direction: "assistant"
+    )
+  rescue => e
+    # En cas d'erreur, créer un message d'erreur
+    @chat.messages.create!(
+      content: "Désolé, une erreur s'est produite : #{e.message}",
+      direction: "assistant"
+    )
   end
 end

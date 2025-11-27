@@ -1,20 +1,24 @@
 <%# app/views/messages/_message.html.erb %>
-<div class="mb-3 <%= message.direction == 'user' ? 'text-end' : 'text-start' %>">
-  <div class="d-inline-block p-3 rounded <%= message.direction == 'user' ? 'bg-primary text-white' : 'bg-white border' %>" 
-       style="max-width: 75%;">
-    
+<div
+  class="mb-3 <%= message.direction == 'user' ? 'text-end' : 'text-start' %>"
+  id="<%= dom_id(message) %>"
+>
+  <div
+    class="d-inline-block p-3 rounded <%= message.direction == 'user' ? 'bg-primary text-white' : 'bg-white border' %>"
+    style="max-width: 75%;"
+  >
     <%# Icône selon le rôle %>
     <% if message.direction == 'assistant' %>
       <strong>🤖 Assistant</strong>
     <% else %>
       <strong>👤 Toi</strong>
     <% end %>
-    
+
     <hr class="my-2">
-    
+
     <%# Contenu du message %>
     <%= simple_format(message.content) %>
-    
+
     <%# Timestamp %>
     <small class="text-muted d-block mt-2" style="font-size: 0.75rem;">
       <%= message.created_at.strftime("%d/%m à %H:%M") %>

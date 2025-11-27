@@ -1,44 +1,34 @@
-<%# app/views/chats/show.html.erb %>
-<div class="container mt-4">
+<div class="container mt-4" data-controller="message-form">
   <div class="row">
     <div class="col-md-8 offset-md-2">
-      
-      <%# En-tête du chat %>
       <div class="card shadow">
-        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-          <div>
-            <h3 class="mb-0"><%= @chat.name %></h3>
+        <div class="card-header bg-primary text-white">
+          <h3 class="mb-0"><%= @chat.name %></h3>
+        </div>
+
+        <div
+          class="card-body bg-light"
+          style="height: 60vh; overflow-y: scroll;"
+          id="messages-container"
+          data-controller="scroll"
+        >
+          <div id="messages" data-message-form-target="messagesContainer">
+            <% if @chat.messages.any? %>
+              <%= render @chat.messages %>
+            <% else %>
+              <div class="text-center text-muted mt-5">
+                <p>💬 Aucun message pour l'instant</p>
+              </div>
+            <% end %>
           </div>
         </div>
-        
-        <%# Zone de messages %>
-        <div class="card-body bg-light" style="height: 60vh; overflow-y: scroll;" id="messages-container">
-          <% if @chat.messages.any? %>
-            <%= render @chat.messages %>
-          <% else %>
-            <div class="text-center text-muted mt-5">
-              <p>💬 Aucun message pour l'instant</p>
-              <p>Pose ta première question ci-dessous !</p>
-            </div>
-          <% end %>
-        </div>
-        
-        <%# Formulaire d'envoi %>
+
         <div class="card-footer bg-white">
-          <%= form_with model: [@chat, @message], local: true, class: "d-flex" do |f| %>
-            <%= f.text_area :content, 
-                class: "form-control me-2", 
-                placeholder: "Demande un résumé de l'actualité...",
-                rows: 2,
-                required: true %>
-            <%= f.submit "Envoyer", class: "btn btn-primary", style: "height: fit-content;" %>
-            <%= link_to "Créer un Daily", new_chat_daily_path(@chat), 
-              class: "btn btn-primary",
-              data: { turbo_frame: "modal" } %>
+          <%= turbo_frame_tag "message_form" do %>
+            <%= render "messages/form", chat: @chat, message: @message %>
           <% end %>
         </div>
       </div>
-      
     </div>
   </div>
 </div>
