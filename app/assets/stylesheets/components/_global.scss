@@ -1,9 +1,9 @@
 // Styles globaux pour l'application
 
 body {
-  background-color: #f8f9fa;
+  background-color: #1a1a1a;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  color: #2d3748;
+  color: #f8f9fa;
   line-height: 1.6;
 }
 
@@ -15,13 +15,23 @@ main {
 .card {
   border-radius: 0.75rem;
   overflow: hidden;
+  background-color: #2d2d2d;
+  border: 1px solid #343a40;
 
   .card-header {
     font-weight: 600;
+    background-color: #343a40;
+    border-bottom: 1px solid #495057;
   }
 
   .card-body {
     line-height: 1.7;
+    background-color: #2d2d2d;
+  }
+
+  .card-footer {
+    background-color: #2d2d2d;
+    border-top: 1px solid #343a40;
   }
 }
 
@@ -44,7 +54,7 @@ main {
 // Amélioration des titres
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
-  color: #1a202c;
+  color: #f8f9fa;
 }
 
 h1 {
@@ -85,7 +95,37 @@ a {
 
 // Amélioration du texte muted
 .text-muted {
-  color: #718096 !important;
+  color: #6c757d !important;
+}
+
+// Dark theme specific styles
+.bg-light {
+  background-color: #2d2d2d !important;
+}
+
+.bg-white {
+  background-color: #343a40 !important;
+}
+
+.border {
+  border-color: #495057 !important;
+}
+
+// Form controls
+.form-control {
+  background-color: #2d2d2d;
+  border-color: #495057;
+  color: #f8f9fa;
+
+  &:focus {
+    background-color: #343a40;
+    border-color: #0d6efd;
+    color: #f8f9fa;
+  }
+
+  &::placeholder {
+    color: #6c757d;
+  }
 }
 
 // Animation fade-in pour les pages

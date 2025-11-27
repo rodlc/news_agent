@@ -2,9 +2,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: white;
+  background: #0d0d0d;
   height: 80px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  border-bottom: 1px solid #343a40;
 }
 
 .navbar-lewagon .navbar-collapse {
