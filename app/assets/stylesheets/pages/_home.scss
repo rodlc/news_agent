@@ -1,53 +1,269 @@
-// Specific CSS for your home-page
+// ============================================================
+// HOME PAGE - Landing Page with Hero & Features
+// ============================================================
+// Strategy: Large, bold hero with tight letter-spacing
+// Soft feature cards with subtle hover effects
+
+// Hero Section - Main landing area
 .home-hero {
-  background: linear-gradient(135deg, #f2f2f7 0%, #ffffff 100%);
-  color: #1c1c1e;
-  padding: 2rem 0;
-  border-bottom: 1px solid #d1d1d6;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  color: var(--text-primary);
+  padding: 4rem 0;
+  border-bottom: 1px solid var(--border-light);
+  position: relative;
+  overflow: hidden;
 
-  h1 {
-    color: #1c1c1e;
+  // Subtle background pattern
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(99, 102, 241, 0.02) 0%, transparent 50%);
+    pointer-events: none;
   }
 
-  .lead {
-    color: #48484a;
-    font-size: 1.25rem;
+  .row {
+    position: relative;
+    z-index: 1;
   }
 
-  .btn-primary {
-    background-color: #4a90e2;
-    color: white;
-    border: none;
-    font-weight: 600;
+  // Hero headline - LARGE and bold
+  h1, .display-3 {
+    font-size: 3.75rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
 
-    &:hover {
-      background-color: #357abd;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+    @media (max-width: 992px) {
+      font-size: 3rem;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 2.25rem;
+    }
+
+    @media (max-width: 576px) {
+      font-size: 1.875rem;
     }
   }
 
-  .btn-outline-primary {
-    color: #1c1c1e;
-    border-color: #4a90e2;
+  // Subheadline - Readable, not too muted
+  .lead {
+    font-size: 1.375rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    font-weight: 400;
+    margin-bottom: 2rem;
+    max-width: 540px;
+
+    @media (max-width: 768px) {
+      font-size: 1.125rem;
+    }
+  }
+
+  // CTA Buttons container
+  .d-flex.gap-3 {
+    gap: 1rem !important;
+    flex-wrap: wrap;
+  }
+
+  // Primary CTA button
+  .btn-primary {
+    background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
+    color: #ffffff;
+    border: none;
+    font-weight: 700;
+    font-size: 1.0625rem;
+    padding: 0.875rem 2rem;
+    border-radius: 0.625rem;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-base);
 
     &:hover {
-      background-color: #4a90e2;
+      background: linear-gradient(135deg, var(--primary-700) 0%, var(--primary-800) 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px -8px rgba(99, 102, 241, 0.4);
       color: #ffffff;
-      border-color: #4a90e2;
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  // Secondary CTA button - Ghost style
+  .btn-outline-primary {
+    background: transparent;
+    color: var(--text-primary);
+    border: 2px solid var(--border-medium);
+    font-weight: 600;
+    font-size: 1.0625rem;
+    padding: 0.875rem 2rem;
+    border-radius: 0.625rem;
+    transition: all var(--transition-base);
+
+    &:hover {
+      background-color: var(--primary-600);
+      color: #ffffff;
+      border-color: var(--primary-600);
+      transform: translateY(-2px);
+    }
+  }
+
+  // Hero illustration - Add subtle shadow
+  img {
+    max-width: 100%;
+    height: auto;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.06));
+    animation: float 6s ease-in-out infinite;
+
+    @media (max-width: 992px) {
+      margin-top: 3rem;
+      max-width: 400px;
     }
   }
 }
 
-.bg-light {
-  background-color: #f2f2f7 !important;
+// Floating animation for illustration
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
 
+// Features Section
+.bg-light {
+  background-color: var(--bg-secondary) !important;
+  padding: 4rem 0;
+
+  h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+
+    @media (max-width: 768px) {
+      font-size: 1.625rem;
+    }
+  }
+
+  // Feature cards
   .card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-default);
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: all var(--transition-slow);
+    box-shadow: var(--shadow-sm);
+    height: 100%;
 
     &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-xl);
+      border-color: var(--primary-200);
     }
+
+    .card-body {
+      padding: 2rem;
+      text-align: center;
+
+      // Emoji icon
+      > div:first-child {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        line-height: 1;
+        animation: bounce 2s ease-in-out infinite;
+      }
+
+      // Card title
+      .card-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+      }
+
+      // Card text
+      .card-text {
+        font-size: 1rem;
+        line-height: 1.7;
+        color: var(--text-secondary);
+      }
+    }
+  }
+}
+
+// Subtle bounce animation for emojis
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+// Row spacing
+.row.g-4 {
+  --bs-gutter-y: 2rem;
+  --bs-gutter-x: 2rem;
+
+  @media (max-width: 768px) {
+    --bs-gutter-y: 1.5rem;
+    --bs-gutter-x: 1.5rem;
+  }
+}
+
+// Text center improvements
+.text-center {
+  h2 {
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+// Responsive improvements
+@media (max-width: 992px) {
+  .home-hero {
+    padding: 3rem 0;
+
+    .row {
+      min-height: auto !important;
+    }
+
+    .col-lg-6 {
+      text-align: center;
+    }
+
+    .d-flex.gap-3 {
+      justify-content: center;
+    }
+
+    .lead {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .home-hero {
+    padding: 2rem 0;
+  }
+
+  .bg-light {
+    padding: 3rem 0;
   }
 }
