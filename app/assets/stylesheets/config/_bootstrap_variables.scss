@@ -1,33 +1,103 @@
-// This is where you override default Bootstrap variables
-// 1. Find all Bootstrap variables that you can override at the end of each component's documentation under the `Sass variables` anchor
-// e.g. here are the ones you can override for the navbar https://getbootstrap.com/docs/5.3/components/navbar/#sass-variables
-// 2. These variables are defined with default value (see https://robots.thoughtbot.com/sass-default)
-// 3. You can override them below!
+// ============================================================
+// BOOTSTRAP VARIABLE OVERRIDES
+// Modern Design System - Tier 1 SaaS
+// ============================================================
 
-// General style
+// Import fonts first
+@import "fonts";
+@import "colors";
+
+// Typography
 $font-family-sans-serif: $body-font;
 $headings-font-family:   $headers-font;
-$body-bg:                $body-bg;
 $font-size-base:         1rem;
+$line-height-base:       1.6;
 
-// Colors
-$body-color: $darker;
-$primary:    $blue;
-$success:    $green;
-$info:       $yellow;
-$danger:     $red;
-$warning:    $orange;
+// Headings
+$headings-font-weight:   700;
+$headings-line-height:   1.2;
 
-// Theme overrides
-$dark: $dark;
-$secondary: $gray;
-$light: $card-bg;
+// Colors - Using new unified primary (Indigo/Purple)
+$body-color: $text-color;
+$body-bg:    $body-bg;
 
-// Buttons & inputs' radius
-$border-radius-sm:            .0625rem;
-$border-radius:               .125rem;
-$border-radius-lg:            .25rem;
-$border-radius-xl:            .5rem;
-$border-radius-xxl:           1rem;
+// Theme colors - PRIMARY ONLY
+$primary:    $primary;
+$secondary:  $gray;
+$success:    $success;
+$danger:     $danger;
+$warning:    $warning;
+$info:       $info;
+$light:      $body-bg;
+$dark:       $dark;
 
-// Override other variables below!
+// Border Radius - Modern, softer corners (12px-16px)
+$border-radius-sm:    0.5rem;   // 8px
+$border-radius:       0.75rem;  // 12px
+$border-radius-lg:    1rem;     // 16px
+$border-radius-xl:    1.25rem;  // 20px
+$border-radius-xxl:   1.5rem;   // 24px
+$border-radius-pill:  50rem;
+
+// Buttons
+$btn-padding-y:         0.625rem;
+$btn-padding-x:         1.25rem;
+$btn-font-weight:       600;
+$btn-border-radius:     0.5rem;
+$btn-border-radius-lg:  0.625rem;
+$btn-box-shadow:        none;
+$btn-focus-box-shadow:  var(--focus-ring);
+
+// Forms
+$input-padding-y:           0.75rem;
+$input-padding-x:           1rem;
+$input-border-radius:       0.5rem;
+$input-border-color:        $border-color;
+$input-focus-border-color:  $primary;
+$input-focus-box-shadow:    var(--focus-ring);
+$input-bg:                  $card-bg;
+
+// Cards
+$card-border-radius:        1rem;
+$card-border-color:         $border-color;
+$card-border-width:         1px;
+$card-bg:                   $card-bg;
+$card-box-shadow:           var(--shadow-sm);
+$card-spacer-y:             1.5rem;
+$card-spacer-x:             1.5rem;
+
+// Navbar
+$navbar-padding-y:          1rem;
+$navbar-brand-padding-y:    0.5rem;
+$navbar-nav-link-padding-x: 1rem;
+
+// Shadows
+$box-shadow-sm:    var(--shadow-sm);
+$box-shadow:       var(--shadow-md);
+$box-shadow-lg:    var(--shadow-lg);
+
+// Spacing
+$spacer: 1rem;
+
+// Links
+$link-decoration: none;
+$link-hover-decoration: none;
+
+// Grid breakpoints (keep defaults but define for clarity)
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+);
+
+// Container max widths
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1320px
+);

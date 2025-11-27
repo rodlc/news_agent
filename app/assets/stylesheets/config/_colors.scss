@@ -1,19 +1,101 @@
-// Define variables for your color scheme
+// ============================================================
+// MODERN COLOR SYSTEM - Tier 1 SaaS Design
+// ============================================================
+// Strategy: Single primary color (Indigo/Purple) with opacity variations
+// Eliminate color conflict by using ONE accent color throughout
 
-// Professional theme with better contrast
-$red: #dc3545;
-$blue: #4a90e2;
-$yellow: #ffc107;
-$orange: #fd7e14;
-$green: #28a745;
-$gray: #8e8e93;
-$light-gray: #e5e5ea;
+// CSS Variables for dynamic theming
+:root {
+  // Primary Color - Indigo/Purple (AI/Tech feel)
+  --primary-50: #eef2ff;
+  --primary-100: #e0e7ff;
+  --primary-200: #c7d2fe;
+  --primary-300: #a5b4fc;
+  --primary-400: #818cf8;
+  --primary-500: #6366f1;  // Main primary
+  --primary-600: #4f46e5;
+  --primary-700: #4338ca;
+  --primary-800: #3730a3;
+  --primary-900: #312e81;
 
-// Light gray theme colors for better readability
-$dark: #2c2c2e;
-$darker: #1c1c1e;
-$dark-gray: #3a3a3c;
-$medium-gray: #48484a;
-$border-gray: #38383a;
-$card-bg: #f2f2f7;
-$body-bg: #e5e5ea;
+  // Neutral Grays - Modern slate palette
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e0;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+  --gray-600: #475569;
+  --gray-700: #334155;
+  --gray-800: #1e293b;
+  --gray-900: #0f172a;
+
+  // Semantic Colors - Minimal usage
+  --success: #10b981;
+  --success-light: #d1fae5;
+  --danger: #ef4444;
+  --danger-light: #fee2e2;
+  --warning: #f59e0b;
+  --warning-light: #fef3c7;
+
+  // Background & Surface
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+
+  // Text Colors
+  --text-primary: #0f172a;    // Nearly black
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+
+  // Borders
+  --border-light: #f1f5f9;
+  --border-default: #e2e8f0;
+  --border-medium: #cbd5e0;
+
+  // Shadows
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+
+  // Focus Ring
+  --focus-ring: 0 0 0 3px rgba(99, 102, 241, 0.1);
+
+  // Transitions
+  --transition-fast: 150ms ease;
+  --transition-base: 200ms ease;
+  --transition-slow: 300ms ease;
+}
+
+// Legacy SCSS Variables (for Bootstrap compatibility)
+// These map to our new CSS variables
+
+// Primary palette
+$primary: #6366f1;
+$primary-dark: #4338ca;
+$primary-light: #a5b4fc;
+
+// Semantic colors (use sparingly)
+$success: #10b981;
+$danger: #ef4444;
+$warning: #f59e0b;
+$info: #3b82f6;
+
+// Neutrals
+$dark: #0f172a;
+$gray: #64748b;
+$light-gray: #e2e8f0;
+$body-bg: #f8fafc;
+$card-bg: #ffffff;
+
+// Text colors
+$text-color: #0f172a;
+$text-muted: #94a3b8;
+
+// Borders
+$border-color: #e2e8f0;
+
+// Remove old conflicting colors
+// No more: $red, $blue, $yellow, $orange for UI elements
+// These should ONLY be used for data visualization if needed
