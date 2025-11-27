@@ -1,0 +1,135 @@
+// Styles pour les pages dailies (index, show, edit)
+
+// Page index - liste des résumés
+.dailies-index {
+  .card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: none;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+    }
+
+    .card-img-top {
+      transition: opacity 0.2s ease;
+    }
+
+    &:hover .card-img-top {
+      opacity: 0.9;
+    }
+  }
+}
+
+// Page show - détail d'un résumé
+.daily-show {
+  .card {
+    border: none;
+
+    .card-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 1.5rem;
+      border-radius: 0.5rem 0.5rem 0 0;
+    }
+
+    .card-body {
+      padding: 2rem;
+    }
+
+    .card-footer {
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+      padding: 1rem 2rem;
+    }
+  }
+}
+
+// Page edit - formulaire d'édition
+.daily-edit {
+  .card {
+    border: none;
+
+    .card-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 1.5rem;
+      border-radius: 0.5rem 0.5rem 0 0;
+    }
+
+    .card-body {
+      padding: 2rem;
+    }
+
+    .form-control {
+      border: 1px solid #e2e8f0;
+      border-radius: 0.5rem;
+      padding: 0.75rem 1rem;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+      &:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+    }
+
+    .form-label {
+      font-weight: 600;
+      color: #2d3748;
+      margin-bottom: 0.5rem;
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 200px;
+    }
+  }
+}
+
+// État vide
+.empty-state {
+  padding: 4rem 2rem;
+
+  img {
+    max-width: 400px;
+    width: 100%;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+
+  h3 {
+    color: #2d3748;
+    font-weight: 600;
+  }
+
+  .text-muted {
+    font-size: 1.1rem;
+  }
+}
+
+// Boutons personnalisés
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  font-weight: 600;
+  padding: 0.5rem 1.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.btn-outline-secondary {
+  border-color: #cbd5e0;
+  color: #718096;
+  font-weight: 600;
+
+  &:hover {
+    background-color: #f7fafc;
+    border-color: #a0aec0;
+    color: #4a5568;
+  }
+}
