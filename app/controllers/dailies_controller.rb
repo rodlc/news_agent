@@ -1,6 +1,6 @@
 class DailiesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_daily, only: [:show, :edit, :update, :destroy]
+  before_action :set_daily, only: [:edit, :update, :destroy]
 
   def index
     @dailies = current_user.dailies.order(created_at: :desc)
@@ -25,15 +25,26 @@ class DailiesController < ApplicationController
     end
   end
 
-  def show
-  end
-
   def edit
   end
 
   def update
     if @daily.update(daily_params)
-      redirect_to @daily, notice: "Résumé mis à jour"
+      # Créer un nouveau chat avec le résumé comme premier message
+      chat = Chat.create!(
+        name: "Discussion #{Time.zone.now.strftime('%H:%M')}",
+        daily: @daily,
+        user: current_user
+      )
+
+      # Ajouter le résumé comme premier message de l'assistant
+      Message.create!(
+        chat: chat,
+        content: @daily.summary.presence || "Aucun résumé pour l'instant.",
+        direction: "assistant"
+      )
+
+      redirect_to chat_path(chat), notice: "Chat créé avec le résumé !"
     else
       render :edit, status: :unprocessable_entity
     end
