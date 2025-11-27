@@ -6,38 +6,37 @@
   <div class="row">
     <% if @dailies.any? %>
       <% @dailies.each do |daily| %>
-        <div class="col-md-4 mb-4">
-          <div class="card h-100 shadow-sm">
-            <img
-              src="https://cdn.generationvoyage.fr/2020/04/journaux-britanniques-et-am%C3%A9ricains.jpg"
-              class="card-img-top"
-              alt="Image de journaux"
-              style="height: 200px; object-fit: cover;"
-            >
+        <%= link_to edit_daily_path(daily), class: "card h-100", style: "text-decoration: none;" do %>
+          <img
+            src="https://cdn.generationvoyage.fr/2020/04/journaux-britanniques-et-am%C3%A9ricains.jpg"
+            class="card-img-top"
+            alt="Image de journaux"
+          >
 
-            <div class="card-body">
-              <h5 class="card-title"><%= daily.title %></h5>
+          <div class="card-body">
+            <h5 class="card-title"><%= daily.title %></h5>
 
-              <p class="card-text text-muted">
-                <%= truncate(daily.summary, length: 100) %>
-              </p>
+            <p class="card-text text-muted">
+              <%= truncate(daily.summary, length: 120) %>
+            </p>
 
-              <div class="d-flex justify-content-between align-items-center mt-3">
-                <%= link_to "Ouvrir", edit_daily_path(daily), class: "btn btn-primary btn-sm" %>
-                <%= button_to "🗑️", daily_path(daily), method: :delete, data: { turbo_confirm: "Supprimer ce résumé ?" }, class: "btn btn-outline-danger btn-sm" %>
-              </div>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <%= button_to "🗑️", daily_path(daily),
+                  method: :delete,
+                  data: { turbo_confirm: "Supprimer ce résumé ?" },
+                  class: "btn btn-outline-danger btn-sm",
+                  onclick: "event.stopPropagation();" %>
             </div>
           </div>
-        </div>
+        <% end %>
       <% end %>
     <% else %>
       <div class="col-12">
-        <div class="empty-state text-center">
+        <div class="empty-state">
           <%= image_tag "undraw_indie-hacker-avatar_b3wy.svg",
-            alt: "État vide",
-            style: "max-width: 400px; width: 100%; margin-bottom: 2rem;" %>
+            alt: "État vide" %>
 
-          <h3 class="mb-3">Aucun résumé pour l'instant</h3>
+          <h3>Aucun résumé pour l'instant</h3>
 
           <p class="text-muted">
             Créez votre premier résumé quotidien pour commencer !

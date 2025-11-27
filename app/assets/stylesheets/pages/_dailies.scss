@@ -1,135 +1,461 @@
-// Styles pour les pages dailies (index, show, edit)
+// ============================================================
+// DAILIES PAGES - Dashboard, Show, Edit
+// ============================================================
+// Strategy: Clickable cards, grid layout, clean modal design
 
-// Page index - liste des résumés
+// ============================================================
+// INDEX PAGE - Dashboard Grid
+// ============================================================
+
 .dailies-index {
+  animation: fadeIn 0.5s ease-out;
+
+  // Header area
+  h1 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    margin-bottom: 0;
+
+    @media (max-width: 768px) {
+      font-size: 1.875rem;
+    }
+  }
+
+  // Grid container - Responsive auto-fill
+  .row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+
+  // Clickable card - Entire card is interactive
   .card {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border: none;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-default);
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-md);
+    cursor: pointer;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    // Remove Bootstrap col classes effect
+    &[class*="col-"] {
+      padding: 0;
+    }
 
     &:hover {
       transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
-    }
+      box-shadow: var(--shadow-xl);
+      border-color: var(--primary-200);
 
-    .card-img-top {
-      transition: opacity 0.2s ease;
-    }
-
-    &:hover .card-img-top {
-      opacity: 0.9;
-    }
-  }
-}
-
-// Page show - détail d'un résumé
-.daily-show {
-  .card {
-    border: none;
-
-    .card-header {
-      background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
-      padding: 1.5rem;
-      border-radius: 0.5rem 0.5rem 0 0;
-    }
-
-    .card-body {
-      padding: 2rem;
-    }
-
-    .card-footer {
-      border-top: 1px solid rgba(0, 0, 0, 0.05);
-      padding: 1rem 2rem;
-    }
-  }
-}
-
-// Page edit - formulaire d'édition
-.daily-edit {
-  .card {
-    border: none;
-
-    .card-header {
-      background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
-      padding: 1.5rem;
-      border-radius: 0.5rem 0.5rem 0 0;
-    }
-
-    .card-body {
-      padding: 2rem;
-    }
-
-    .form-control {
-      border: 1px solid #e2e8f0;
-      border-radius: 0.5rem;
-      padding: 0.75rem 1rem;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-
-      &:focus {
-        border-color: #4a90e2;
-        box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+      .card-img-top {
+        opacity: 0.92;
+        transform: scale(1.03);
       }
     }
 
-    .form-label {
-      font-weight: 600;
-      color: #2d3748;
-      margin-bottom: 0.5rem;
+    &:active {
+      transform: translateY(-2px);
     }
 
-    textarea.form-control {
-      resize: vertical;
-      min-height: 200px;
+    // Image as cover
+    .card-img-top {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: all var(--transition-slow);
+      display: block;
+    }
+
+    // Card body
+    .card-body {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+
+      .card-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 0.75rem;
+        line-height: 1.3;
+      }
+
+      .card-text {
+        font-size: 0.9375rem;
+        line-height: 1.6;
+        color: var(--text-secondary);
+        flex: 1;
+        margin-bottom: 1rem;
+      }
+
+      // Actions row at bottom
+      .d-flex {
+        margin-top: auto;
+        gap: 0.75rem;
+
+        // Hide "Ouvrir" button - card is clickable
+        .btn-primary {
+          display: none;
+        }
+
+        // Delete button - Keep minimal
+        .btn-outline-danger {
+          background: transparent;
+          color: var(--danger);
+          border: 1px solid var(--danger);
+          padding: 0.5rem 1rem;
+          font-size: 0.875rem;
+          border-radius: 0.5rem;
+          transition: all var(--transition-fast);
+          margin-left: auto;
+
+          &:hover {
+            background-color: var(--danger);
+            color: #ffffff;
+            transform: scale(1.05);
+          }
+        }
+      }
     }
   }
 }
 
-// État vide
+// ============================================================
+// EMPTY STATE
+// ============================================================
+
 .empty-state {
-  padding: 4rem 2rem;
+  padding: 5rem 2rem;
+  text-align: center;
+  animation: fadeIn 0.6s ease-out;
 
   img {
     max-width: 400px;
     width: 100%;
-    margin-bottom: 2rem;
-    opacity: 0.9;
+    margin-bottom: 2.5rem;
+    opacity: 0.85;
+    filter: grayscale(0.1);
+
+    @media (max-width: 768px) {
+      max-width: 300px;
+      margin-bottom: 2rem;
+    }
   }
 
   h3 {
-    color: #2d3748;
-    font-weight: 600;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+
+    @media (max-width: 768px) {
+      font-size: 1.5rem;
+    }
   }
 
   .text-muted {
-    font-size: 1.1rem;
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 500px;
+    margin: 0 auto;
   }
 }
 
-// Boutons personnalisés
-.btn-primary {
-  background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
-  border: none;
-  font-weight: 600;
-  padding: 0.5rem 1.5rem;
-  transition: box-shadow 0.2s ease;
+// ============================================================
+// EDIT PAGE - Modal/Form Design
+// ============================================================
 
-  &:hover {
-    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+.daily-edit {
+  animation: fadeIn 0.5s ease-out;
+
+  .card {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-default);
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+
+    // Header - NO BLUE BACKGROUND
+    .card-header {
+      background-color: var(--bg-primary);
+      padding: 2rem 2rem 1.5rem;
+      border-bottom: 1px solid var(--border-light);
+
+      h3 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 0;
+        letter-spacing: -0.01em;
+      }
+    }
+
+    // Body with form
+    .card-body {
+      padding: 2rem;
+
+      // Form group spacing
+      .mb-3 {
+        margin-bottom: 1.5rem;
+
+        &:last-of-type {
+          margin-bottom: 2rem;
+        }
+      }
+
+      // Form labels - Bold, clear
+      .form-label {
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 0.625rem;
+        font-size: 0.9375rem;
+        display: block;
+      }
+
+      // Modern inputs - Light border, focus ring
+      .form-control {
+        width: 100%;
+        padding: 0.875rem 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid var(--border-default);
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        font-size: 0.9375rem;
+        transition: all var(--transition-fast);
+        font-family: inherit;
+
+        &::placeholder {
+          color: var(--text-muted);
+        }
+
+        &:focus {
+          outline: none;
+          border-color: var(--primary-600);
+          box-shadow: var(--focus-ring);
+          background-color: var(--bg-primary);
+        }
+
+        &:hover:not(:focus) {
+          border-color: var(--border-medium);
+        }
+      }
+
+      // Textarea specific
+      textarea.form-control {
+        resize: vertical;
+        min-height: 280px;
+        line-height: 1.7;
+        font-family: $body-font;
+      }
+
+      // Actions row
+      .d-flex.justify-content-between {
+        align-items: center;
+        margin-top: 2rem;
+        gap: 1rem;
+
+        @media (max-width: 576px) {
+          flex-direction: column;
+          align-items: stretch;
+
+          > * {
+            width: 100%;
+          }
+
+          .btn {
+            width: 100%;
+          }
+        }
+
+        // Back button
+        .btn-outline-secondary {
+          background: transparent;
+          color: var(--text-secondary);
+          border: 1px solid var(--border-default);
+          font-weight: 600;
+          padding: 0.75rem 1.5rem;
+          transition: all var(--transition-fast);
+
+          &:hover {
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            border-color: var(--border-medium);
+          }
+        }
+
+        // Right side buttons
+        > div {
+          display: flex;
+          gap: 0.75rem;
+
+          @media (max-width: 576px) {
+            flex-direction: column-reverse;
+          }
+        }
+
+        // Cancel button - Ghost
+        .btn-secondary {
+          background: transparent;
+          color: var(--text-secondary);
+          border: 1px solid var(--border-default);
+          font-weight: 600;
+          padding: 0.75rem 1.5rem;
+          transition: all var(--transition-fast);
+
+          &:hover {
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            border-color: var(--border-medium);
+          }
+        }
+
+        // Save button - ONLY COLORED ELEMENT
+        .btn-success {
+          background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+          color: #ffffff;
+          border: none;
+          font-weight: 700;
+          padding: 0.75rem 2rem;
+          box-shadow: var(--shadow-sm);
+          transition: all var(--transition-base);
+
+          &:hover {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 16px -4px rgba(16, 185, 129, 0.3);
+            color: #ffffff;
+          }
+
+          &:active {
+            transform: translateY(0);
+          }
+        }
+      }
+    }
+  }
+}
+
+// ============================================================
+// SHOW PAGE - Detail view
+// ============================================================
+
+.daily-show {
+  animation: fadeIn 0.5s ease-out;
+
+  .card {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-default);
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+
+    .card-header {
+      background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
+      padding: 2rem;
+      color: #ffffff;
+      border: none;
+
+      h1, h2, h3 {
+        color: #ffffff;
+        margin-bottom: 0;
+      }
+    }
+
+    .card-body {
+      padding: 2rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      font-size: 1rem;
+
+      h1, h2, h3, h4, h5, h6 {
+        color: var(--text-primary);
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+
+        &:first-child {
+          margin-top: 0;
+        }
+      }
+
+      p {
+        margin-bottom: 1rem;
+      }
+    }
+
+    .card-footer {
+      background-color: var(--bg-secondary);
+      border-top: 1px solid var(--border-light);
+      padding: 1.25rem 2rem;
+
+      .btn {
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+// ============================================================
+// RESPONSIVE ADJUSTMENTS
+// ============================================================
+
+@media (max-width: 768px) {
+  .dailies-index {
+    .row {
+      margin-top: 1.5rem;
+    }
   }
 
-  &:active {
+  .daily-edit {
+    .card {
+      .card-header {
+        padding: 1.5rem;
+
+        h3 {
+          font-size: 1.5rem;
+        }
+      }
+
+      .card-body {
+        padding: 1.5rem;
+      }
+    }
+  }
+
+  .daily-show {
+    .card {
+      .card-header,
+      .card-body {
+        padding: 1.5rem;
+      }
+    }
+  }
+}
+
+// ============================================================
+// ANIMATIONS
+// ============================================================
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
     transform: translateY(0);
-  }
-}
-
-.btn-outline-secondary {
-  border-color: #cbd5e0;
-  color: #718096;
-  font-weight: 600;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
-
-  &:hover {
-    background-color: #f7fafc;
-    border-color: #a0aec0;
-    color: #4a5568;
   }
 }
