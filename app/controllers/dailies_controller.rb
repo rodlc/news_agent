@@ -19,19 +19,7 @@ class DailiesController < ApplicationController
     )
 
     if @daily.save
-      # Créer automatiquement un Chat associé
-      @chat = Chat.new(
-        name: "Discussion #{Time.zone.now.strftime('%H:%M')}",
-        daily: @daily,
-        user: current_user
-      )
-
-      if @chat.save
-        redirect_to chat_path(@chat), notice: "Nouveau résumé créé !"
-      else
-        @daily.destroy
-        redirect_to root_path, alert: "Erreur lors de la création du chat"
-      end
+      redirect_to edit_daily_path(@daily), notice: "Nouveau résumé créé ! Modifiez-le selon vos besoins."
     else
       redirect_to root_path, alert: "Erreur lors de la création du résumé"
     end
