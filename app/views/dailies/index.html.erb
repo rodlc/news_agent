@@ -23,7 +23,7 @@
               </p>
 
               <div class="d-flex justify-content-between align-items-center mt-3">
-                <%= link_to "Ouvrir", daily_path(daily), class: "btn btn-primary btn-sm" %>
+                <%= link_to "Ouvrir", edit_daily_path(daily), class: "btn btn-primary btn-sm" %>
                 <%= button_to "🗑️", daily_path(daily), method: :delete, data: { turbo_confirm: "Supprimer ce résumé ?" }, class: "btn btn-outline-danger btn-sm" %>
               </div>
             </div>
