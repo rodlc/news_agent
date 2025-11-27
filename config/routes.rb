@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   root to: "pages#home"
 
   # Routes pour les dailies avec chats nested
-  resources :dailies, only: [:index, :create, :show, :edit, :update, :destroy] do
+  resources :dailies, only: [:index, :create, :edit, :update, :destroy] do
     resources :chats, only: [:create]
   end
 
