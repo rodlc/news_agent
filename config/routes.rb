@@ -7,8 +7,8 @@ Rails.application.routes.draw do
   # Routes pour les chats (on enlève le nested dans dailies)
   resources :chats, only: [:show, :new, :create] do
     resources :messages, only: [:create]
+    resources :dailies, only: [:new, :create]
   end
 
-  # Reveal health status on /up
   get "up" => "rails/health#show", as: :rails_health_check
 end
