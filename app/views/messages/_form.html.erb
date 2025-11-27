@@ -13,8 +13,7 @@
 
   <%= f.submit "Envoyer", class: "btn btn-primary", style: "height: fit-content;" %>
 
-  <%= link_to "Créer un Daily", new_chat_daily_path(chat),
-      class: "btn btn-primary ms-2",
-      style: "height: fit-content;",
-      data: { turbo_frame: "modal" } %>
+  <%= link_to "Générer le résumé", edit_daily_path(chat.daily),
+      class: "btn btn-outline-secondary ms-2",
+      style: "height: fit-content;" %>
 <% end %>
