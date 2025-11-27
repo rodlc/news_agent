@@ -1,0 +1,38 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+          <h3 class="mb-0"><%= @daily.title %></h3>
+
+          <small class="text-white-50">
+            Créé le <%= @daily.created_at.strftime('%d/%m/%Y à %H:%M') %>
+          </small>
+        </div>
+
+        <div class="card-body">
+          <h5>Résumé :</h5>
+
+          <% if @daily.summary.present? %>
+            <div class="p-3 bg-light rounded">
+              <%= simple_format(@daily.summary) %>
+            </div>
+          <% else %>
+            <div class="p-3 bg-light rounded text-muted">
+              <p class="mb-0">Aucun résumé pour l'instant.</p>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="card-footer bg-white d-flex justify-content-between">
+          <%= link_to "← Retour au dashboard", dailies_path, class: "btn btn-outline-secondary" %>
+
+          <div>
+            <%= link_to "Modifier", edit_daily_path(@daily), class: "btn btn-warning me-2" %>
+            <%= button_to "Supprimer", daily_path(@daily), method: :delete, data: { turbo_confirm: "Êtes-vous sûr de vouloir supprimer ce résumé et tous ses chats ?" }, class: "btn btn-danger" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

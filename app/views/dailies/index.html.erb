@@ -1,0 +1,48 @@
+<div class="d-flex align-items-center ms-5" style="height: 100px;">
+  <h1>Mon Dashboard</h1>
+</div>
+
+<div>
+  <h2 class="ms-2">Liste de vos résumés précédents</h2>
+</div>
+
+<div class="container">
+  <div class="row">
+    <% if @dailies.any? %>
+      <% @dailies.each do |daily| %>
+        <div class="col-md-4 mb-3">
+          <div class="card" style="width: 18rem;">
+            <img
+              src="https://cdn.generationvoyage.fr/2020/04/journaux-britanniques-et-am%C3%A9ricains.jpg"
+              class="card-img-top"
+              alt="Image de journaux"
+            >
+
+            <div class="card-body">
+              <h5 class="card-title"><%= daily.title %></h5>
+
+              <p class="card-text">
+                <%= truncate(daily.summary, length: 100) %>
+              </p>
+
+              <div class="d-flex justify-content-between align-items-center">
+                <%= link_to "Ouvrir le résumé", daily_path(daily), class: "btn btn-primary" %>
+                <%= button_to "🗑️", daily_path(daily), method: :delete, data: { turbo_confirm: "Supprimer ce résumé ?" }, class: "btn btn-outline-danger btn-sm" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="col-12">
+        <div class="text-center text-muted mt-5 p-5 bg-light rounded">
+          <p class="h4 mb-3">📰 Aucun résumé pour l'instant</p>
+
+          <p class="mb-0">
+            Créez votre premier résumé quotidien pour commencer !
+          </p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
