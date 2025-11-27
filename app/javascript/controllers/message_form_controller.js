@@ -6,6 +6,21 @@ export default class extends Controller {
 
   connect() {
     console.log("Message form controller connected");
+    this.setupKeyboardShortcuts();
+  }
+
+  setupKeyboardShortcuts() {
+    this.contentTarget.addEventListener("keydown", (event) => {
+      // Entrée sans modificateur : soumettre le formulaire
+      if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        const content = this.contentTarget.value.trim();
+        if (content) {
+          this.element.requestSubmit();
+        }
+      }
+      // Maj+Entrée : laisser le comportement par défaut (nouvelle ligne)
+    });
   }
 
   // Appelé quand Turbo commence à soumettre le formulaire
