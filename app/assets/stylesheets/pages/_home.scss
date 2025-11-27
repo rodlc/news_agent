@@ -1,53 +1,53 @@
 // Specific CSS for your home-page
 .home-hero {
-  background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 100%);
-  color: #f8f9fa;
+  background: linear-gradient(135deg, #f2f2f7 0%, #ffffff 100%);
+  color: #1c1c1e;
   padding: 2rem 0;
-  border-bottom: 1px solid #343a40;
+  border-bottom: 1px solid #d1d1d6;
 
   h1 {
-    color: #f8f9fa;
+    color: #1c1c1e;
   }
 
   .lead {
-    color: #6c757d;
+    color: #48484a;
     font-size: 1.25rem;
   }
 
   .btn-primary {
-    background-color: #0d6efd;
+    background-color: #4a90e2;
     color: white;
     border: none;
     font-weight: 600;
 
     &:hover {
-      background-color: #0b5ed7;
+      background-color: #357abd;
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+      box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
     }
   }
 
   .btn-outline-primary {
-    color: #f8f9fa;
-    border-color: #495057;
+    color: #1c1c1e;
+    border-color: #4a90e2;
 
     &:hover {
-      background-color: #2d2d2d;
-      color: #f8f9fa;
-      border-color: #0d6efd;
+      background-color: #4a90e2;
+      color: #ffffff;
+      border-color: #4a90e2;
     }
   }
 }
 
 .bg-light {
-  background-color: #1a1a1a !important;
+  background-color: #f2f2f7 !important;
 
   .card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 
     &:hover {
       transform: translateY(-5px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
     }
   }
 }

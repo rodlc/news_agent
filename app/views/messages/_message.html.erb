@@ -4,8 +4,8 @@
   id="<%= dom_id(message) %>"
 >
   <div
-    class="d-inline-block p-3 rounded <%= message.direction == 'user' ? 'bg-primary text-white' : 'border' %>"
-    style="max-width: 75%; <%= message.direction == 'assistant' ? 'background-color: #343a40;' : '' %>"
+    class="d-inline-block p-3 rounded <%= message.direction == 'user' ? 'bg-primary text-white' : 'bg-light border' %>"
+    style="max-width: 75%;"
   >
     <%# Icône selon le rôle %>
     <% if message.direction == 'assistant' %>
@@ -21,8 +21,8 @@
 
     <%# Timestamp %>
     <small
-      class="d-block mt-2"
-      style="font-size: 0.75rem; <%= message.direction == 'user' ? 'color: rgba(255,255,255,0.7);' : 'color: #6c757d;' %>"
+      class="<%= message.direction == 'user' ? 'text-white-50' : 'text-muted' %> d-block mt-2"
+      style="font-size: 0.75rem;"
     >
       <%= message.created_at.strftime("%d/%m à %H:%M") %>
     </small>
