@@ -3,7 +3,7 @@
 class UrlScraperTool < RubyLLM::Tool
   description "Scrape and summarize content from a URL. Use this when the user provides a link or asks about a webpage."
 
-  param :url, description: "The URL to scrape and analyze"
+  param :url, desc: "The URL to scrape and analyze"
 
   def execute(url:)
     # Call the Daily model's summarize_url method
