@@ -32,7 +32,7 @@ class MessagesController < ApplicationController
 
   def process_ai_response
     # 1. Configuration du LLM
-    ruby_llm_chat = RubyLLM.chat(provider: :openai, model: "gpt-5-mini")
+    ruby_llm_chat = RubyLLM.chat(provider: :openai, model: "gpt-4o")
 
     system_prompt = <<~PROMPT
           Tu es Newsagent. Ton but est de synthétiser l'actualité pour un lycéen.
