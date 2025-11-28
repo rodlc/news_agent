@@ -14,6 +14,7 @@
   <%= f.submit "Envoyer", class: "btn btn-primary", style: "height: fit-content;" %>
 
   <% has_messages = chat.messages.any? %>
+
   <% if chat.daily.present? %>
     <%= link_to "Générer le résumé", edit_daily_path(chat.daily),
         class: "btn btn-outline-secondary ms-2 #{!has_messages ? 'disabled' : ''}",

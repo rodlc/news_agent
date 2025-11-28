@@ -61,7 +61,7 @@ class DailiesController < ApplicationController
 
   def generate_summary_with_llm(chat)
     # 1. Configuration du LLM
-    ruby_llm_chat = RubyLLM.chat(provider: :openai, model: "gpt-4o")
+    ruby_llm_chat = RubyLLM.chat(provider: :openai, model: ENV['GITHUB_MODEL'])
 
     system_prompt = <<~PROMPT
       Tu es un assistant expert en synthèse d'actualité.
