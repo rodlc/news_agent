@@ -2,6 +2,10 @@ source "https://rubygems.org"
 
 ruby "3.3.5"
 
+gem 'feedjira'
+
+gem 'httparty'
+
 gem 'devise'
 
 gem 'ruby_llm'
