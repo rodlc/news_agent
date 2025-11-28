@@ -10,6 +10,7 @@
           <%= form_with model: @daily, local: true do |f| %>
             <div class="mb-3">
               <%= f.label :title, "Titre", class: "form-label" %>
+
               <%= f.text_field :title,
                   class: "form-control",
                   placeholder: "Ex: Résumé du 27/11/2025",
@@ -18,6 +19,7 @@
 
             <div class="mb-3">
               <%= f.label :summary, "Résumé", class: "form-label" %>
+
               <%= f.text_area :summary,
                   class: "form-control",
                   placeholder: "Entrez le résumé de votre actualité...",
@@ -30,8 +32,13 @@
               <% end %>
 
               <div>
-                <%= link_to "Annuler", dailies_path, class: "btn btn-secondary me-2" %>
-                <%= f.submit "Sauvegarder", class: "btn btn-success" %>
+                <% last_chat = @daily.chats.order(created_at: :desc).first %>
+
+                <% if last_chat.present? %>
+                  <%= link_to "Éditer", chat_path(last_chat), class: "btn btn-secondary me-2" %>
+                <% end %>
+
+                <%= f.submit "Sauvegarder", class: "btn btn-primary" %>
               </div>
             </div>
           <% end %>
