@@ -55,27 +55,7 @@ class MessagesController < ApplicationController
         PROMPT
 
     ruby_llm_chat.with_instructions(system_prompt)
-    
-    #1. Detect URL in message and scrape content
-    url_regex = URI::DEFAULT_PARSER.make_regexp(%w[http https])
-    if @message.content.match?(url_regex)
-      url = @message.content.match(url_regex)[0]
 
-      # Fetch content using Daily model
-      result = Daily.summarize_url(url)
-      if result && result["results"] && result["results"].any?
-        content = result["results"][0]["content"]
-        title = result["results"][0]["title"]
-
-        # Add scraped content to conversation before user's message
-        ruby_llm_chat.add_message(
-          role: :user,
-          content: "Here's the content from #{url}:\n\nTitle: #{title}\n\nContent: #{content}\n\nPlease summarize this simply."
-        )
-      end
-    end
-    ## test jen end
-    
     # 2. Reconstitution de l'historique
     @chat.messages.where.not(id: @message.id).order(:created_at).each do |msg|
       role = msg.direction == "user" ? :user : :assistant
