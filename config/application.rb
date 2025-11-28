@@ -30,5 +30,8 @@ module NewsAgent
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Load RubyLLM tools from app/tools
+    #config.autoload_paths << Rails.root.join("app/tools")
   end
 end

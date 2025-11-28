@@ -48,4 +48,26 @@ class DailiesController < ApplicationController
   def daily_params
     params.require(:daily).permit(:summary, :title)
   end
+
+
+
+  ####test test test Jen
+
+   def execute(url:)
+    # Call the Daily model's summarize_url method
+    result = Daily.summarize_url(url)
+
+    # Return the scraped content as a formatted string for the LLM to summarize
+    if result && result["results"] && result["results"].any?
+      # Extract the first result's content
+      content = result["results"][0]["content"]
+      title = result["results"][0]["title"]
+
+      "Title: #{title}\n\nContent: #{content}"
+    else
+      "Could not retrieve content from the URL."
+    end
+  rescue => e
+    "Error scraping URL: #{e.message}"
+  end
 end

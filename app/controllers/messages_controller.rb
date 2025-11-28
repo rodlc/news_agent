@@ -44,6 +44,26 @@ class MessagesController < ApplicationController
     ruby_llm_chat = ruby_llm_chat.with_instructions(
       "Your name is Newsagent: a helpful assistant explaining news simply, like to a high school student, providing historical context to help understand events better."
     )
+    ###### test jen ###
+    # Detect URL in message and scrape content
+    url_regex = URI::DEFAULT_PARSER.make_regexp(%w[http https])
+    if @message.content.match?(url_regex)
+      url = @message.content.match(url_regex)[0]
+
+      # Fetch content using Daily model
+      result = Daily.summarize_url(url)
+      if result && result["results"] && result["results"].any?
+        content = result["results"][0]["content"]
+        title = result["results"][0]["title"]
+
+        # Add scraped content to conversation before user's message
+        ruby_llm_chat.add_message(
+          role: :user,
+          content: "Here's the content from #{url}:\n\nTitle: #{title}\n\nContent: #{content}\n\nPlease summarize this simply."
+        )
+      end
+    end
+    ## test jen end
 
     # Construction de l'historique des messages
     @chat.messages.where.not(id: @message.id).order(:created_at).each do |msg|

@@ -14,11 +14,11 @@ puts 'Populating database...'
 puts 'Creating users'
 
 
-users = User.new(
-    email: Faker::Internet.email,
+users = User.create(
+    email: 'email@email.com', #Faker::Internet.email,
     password: 'password123'
   )
-  users.save!
+  #users.save!
 puts 'Users done'
 
 puts 'Creating dailies'
@@ -26,7 +26,8 @@ puts 'Creating dailies'
   #daily = ''
   dailies = Daily.new(
     title: Faker::Lorem.sentence(word_count: 5),
-    summary: Faker::Lorem.paragraph(sentence_count: 3)
+    summary: Faker::Lorem.paragraph(sentence_count: 3),
+    user: users
   )
   dailies.save!
   end
@@ -50,7 +51,7 @@ puts 'Creating messages'
 25.times do
   messages = Message.new(
     content: Faker::Lorem.sentence(word_count: 10),
-    direction: ['incoming', 'outgoing'].sample,
+    direction: ['user', 'assistant'].sample,
     chat: Chat.last
   )
   messages.save!
