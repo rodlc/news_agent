@@ -80,10 +80,14 @@ export default class extends Controller {
         <div class="d-inline-block p-3 rounded bg-white border" style="max-width: 75%;">
           <strong>🤖 Assistant</strong>
           <hr class="my-2">
-          <div class="spinner-border spinner-border-sm" role="status">
-            <span class="visually-hidden">Chargement...</span>
+          <div id="loading-message-text">
+            <div class="d-flex align-items-center">
+              <div class="spinner-border spinner-border-sm" role="status">
+                <span class="visually-hidden">Chargement...</span>
+              </div>
+              <em class="ms-2">Réflexion en cours</em>
+            </div>
           </div>
-          <em class="ms-2">Réflexion en cours...</em>
         </div>
       </div>
     `;

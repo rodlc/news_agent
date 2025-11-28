@@ -71,8 +71,14 @@ class MessagesController < ApplicationController
       begin
         data = JSON.parse(content)
 
+        # Broadcast statut: Récupération de l'actualité
+        broadcast_status_update("Récupération de l'actualité")
+
         # C'EST ICI QUE LA MAGIE OPÈRE (Appel corrigé)
         rss_results = RssFetcher.search(data["query"], data["date"])
+
+        # Broadcast statut: Synthèse en cours
+        broadcast_status_update("Synthèse en cours")
 
         # On injecte les résultats dans le contexte du LLM
         system_injection = "RÉSULTATS RSS OBTENUS :\n#{rss_results}\n\nInstruction : Synthétise ces infos maintenant."
@@ -98,5 +104,12 @@ class MessagesController < ApplicationController
     )
   end
 
-
+  def broadcast_status_update(status)
+    Turbo::StreamsChannel.broadcast_update_to(
+      "chat_#{@chat.id}",
+      target: "loading-message-text",
+      partial: "messages/loading_status",
+      locals: { status: status }
+    )
+  end
 end
