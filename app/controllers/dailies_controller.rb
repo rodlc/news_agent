@@ -23,6 +23,16 @@ class DailiesController < ApplicationController
   end
 
   def edit
+    # Pré-remplir automatiquement si le Daily est vide
+    if @daily.title.blank? && @daily.summary.blank?
+      chat = @daily.chats.last
+
+      if chat.present? && chat.messages.any?
+        result = generate_summary_with_llm(chat)
+        @daily.title = result[:title]
+        @daily.summary = result[:summary]
+      end
+    end
   end
 
   def update
