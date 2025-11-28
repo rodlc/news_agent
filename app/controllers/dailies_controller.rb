@@ -1,6 +1,6 @@
 class DailiesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_daily, only: [:show, :edit, :update, :destroy]
+  before_action :set_daily, only: [:edit, :update, :destroy]
 
   def index
     @dailies = current_user.dailies.order(created_at: :desc)
@@ -12,32 +12,14 @@ class DailiesController < ApplicationController
   end
 
   def create
-    @daily = Daily.new(
-      title: "Résumé du #{Time.zone.now.strftime('%d/%m/%Y')}",
-      summary: "",
+    # Créer un chat sans Daily pour commencer à itérer
+    chat = Chat.create!(
+      name: "Discussion #{Time.zone.now.strftime('%H:%M')}",
+      daily: nil,
       user: current_user
     )
 
-    if @daily.save
-      # Créer automatiquement un Chat associé
-      @chat = Chat.new(
-        name: "Discussion #{Time.zone.now.strftime('%H:%M')}",
-        daily: @daily,
-        user: current_user
-      )
-
-      if @chat.save
-        redirect_to chat_path(@chat), notice: "Nouveau résumé créé !"
-      else
-        @daily.destroy
-        redirect_to root_path, alert: "Erreur lors de la création du chat"
-      end
-    else
-      redirect_to root_path, alert: "Erreur lors de la création du résumé"
-    end
-  end
-
-  def show
+    redirect_to chat_path(chat), notice: "Nouveau chat créé ! Commencez à discuter pour générer votre résumé."
   end
 
   def edit
@@ -45,7 +27,7 @@ class DailiesController < ApplicationController
 
   def update
     if @daily.update(daily_params)
-      redirect_to @daily, notice: "Résumé mis à jour"
+      redirect_to dailies_path, notice: "Résumé sauvegardé avec succès !"
     else
       render :edit, status: :unprocessable_entity
     end

@@ -13,7 +13,37 @@
 
   <%= f.submit "Envoyer", class: "btn btn-primary", style: "height: fit-content;" %>
 
-  <%= link_to "Générer le résumé", edit_daily_path(chat.daily),
-      class: "btn btn-outline-secondary ms-2",
-      style: "height: fit-content;" %>
+  <% has_messages = chat.messages.any? %>
+  <% if chat.daily.present? %>
+    <%= link_to "Générer le résumé", edit_daily_path(chat.daily),
+        class: "btn btn-outline-secondary ms-2 #{!has_messages ? 'disabled' : ''}",
+        style: "height: fit-content;",
+        title: has_messages ? "" : "Pas d'historique pour générer un résumé",
+        data: { bs_toggle: has_messages ? "" : "tooltip", bs_placement: "top" },
+        tabindex: has_messages ? 0 : -1,
+        aria_disabled: !has_messages %>
+  <% else %>
+    <% if has_messages %>
+      <%= button_to "Générer le résumé", generate_summary_chat_path(chat),
+          method: :post,
+          class: "btn btn-outline-secondary ms-2",
+          style: "height: fit-content;" %>
+    <% else %>
+      <span
+        class="d-inline-block"
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        title="Pas d'historique pour générer un résumé"
+      >
+        <button
+          type="button"
+          class="btn btn-outline-secondary ms-2"
+          style="height: fit-content; pointer-events: none;"
+          disabled
+        >
+          Générer le résumé
+        </button>
+      </span>
+    <% end %>
+  <% end %>
 <% end %>

@@ -1,7 +1,7 @@
 class ChatsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_daily, only: [:create]
-  before_action :set_chat, only: [:show]
+  before_action :set_chat, only: [:show, :generate_summary]
 
   def create
     @chat = Chat.new(
@@ -19,6 +19,20 @@ class ChatsController < ApplicationController
 
   def show
     @message = Message.new(chat: @chat)
+  end
+
+  def generate_summary
+    # Créer un Daily à partir du chat si il n'existe pas encore
+    if @chat.daily.nil?
+      daily = Daily.create!(
+        title: "Résumé du #{Time.zone.now.strftime('%d/%m/%Y')}",
+        summary: "",
+        user: current_user
+      )
+      @chat.update!(daily: daily)
+    end
+
+    redirect_to edit_daily_path(@chat.daily), notice: "Prêt à générer votre résumé !"
   end
 
   private

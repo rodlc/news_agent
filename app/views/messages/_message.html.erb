@@ -4,7 +4,7 @@
   id="<%= dom_id(message) %>"
 >
   <div
-    class="d-inline-block p-3 rounded <%= message.direction == 'user' ? 'bg-primary text-white' : 'bg-white border' %>"
+    class="d-inline-block p-3 rounded <%= message.direction == 'user' ? 'bg-primary text-white' : 'bg-light border' %>"
     style="max-width: 75%;"
   >
     <%# Icône selon le rôle %>
@@ -20,7 +20,10 @@
     <%= simple_format(message.content) %>
 
     <%# Timestamp %>
-    <small class="text-muted d-block mt-2" style="font-size: 0.75rem;">
+    <small
+      class="<%= message.direction == 'user' ? 'text-white-50' : 'text-muted' %> d-block mt-2"
+      style="font-size: 0.75rem;"
+    >
       <%= message.created_at.strftime("%d/%m à %H:%M") %>
     </small>
   </div>
