@@ -22,17 +22,23 @@ class ChatsController < ApplicationController
   end
 
   def generate_summary
+    # Validation : s'assurer qu'il y a des messages
+    if @chat.messages.empty?
+      redirect_to chat_path(@chat), alert: "Aucun message dans ce chat pour générer un résumé."
+      return
+    end
+
     # Créer un Daily à partir du chat si il n'existe pas encore
     if @chat.daily.nil?
       daily = Daily.create!(
-        title: "Résumé du #{Time.zone.now.strftime('%d/%m/%Y')}",
+        title: "",
         summary: "",
         user: current_user
       )
       @chat.update!(daily: daily)
     end
 
-    redirect_to edit_daily_path(@chat.daily), notice: "Prêt à générer votre résumé !"
+    redirect_to edit_daily_path(@chat.daily), notice: "Génération du résumé en cours..."
   end
 
   private
