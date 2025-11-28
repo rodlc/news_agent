@@ -1,2 +1,83 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="home-hero">
+  <div class="container">
+    <div class="row align-items-center" style="min-height: 75vh;">
+      <div class="col-lg-6">
+        <h1 class="display-3 mb-4">
+          Suivez l'actualité avec intelligence
+        </h1>
+
+        <p class="lead mb-5">
+          Créez vos résumés quotidiens, analysez l'actualité et gardez une trace
+          de vos lectures. Restez informé avec l'aide de l'intelligence artificielle.
+        </p>
+
+        <div class="d-flex gap-3">
+          <%= link_to new_user_registration_path, class: "btn btn-primary btn-lg" do %>
+            Commencer gratuitement
+          <% end %>
+
+          <%= link_to new_user_session_path, class: "btn btn-outline-primary btn-lg" do %>
+            Se connecter
+          <% end %>
+        </div>
+      </div>
+
+      <div class="col-lg-6 d-none d-lg-block text-center">
+        <%= image_tag "undraw_news_nz1p.svg",
+          alt: "Illustration actualités",
+          class: "img-fluid" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bg-light">
+  <div class="container">
+    <div class="row text-center mb-5">
+      <div class="col-12">
+        <h2 class="mb-3">Pourquoi utiliser NewsAgent ?</h2>
+        <p class="lead">Tout ce dont vous avez besoin pour rester informé</p>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card h-100 border-0">
+          <div class="card-body">
+            <div>📰</div>
+            <h5 class="card-title">Résumés personnalisés</h5>
+            <p class="card-text">
+              Créez et sauvegardez vos résumés d'actualité quotidiens en un
+              clic.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100 border-0">
+          <div class="card-body">
+            <div>💬</div>
+            <h5 class="card-title">Discussions intelligentes</h5>
+            <p class="card-text">
+              Échangez avec une IA pour approfondir vos lectures et comprendre
+              l'actualité.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100 border-0">
+          <div class="card-body">
+            <div>📚</div>
+            <h5 class="card-title">Historique complet</h5>
+            <p class="card-text">
+              Retrouvez facilement tous vos résumés et conversations passées.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

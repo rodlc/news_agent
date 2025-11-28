@@ -4,9 +4,17 @@ Rails.application.routes.draw do
 
   root to: "pages#home"
 
-  resources :chats, only: [:show, :create] do
+  # Routes pour les dailies avec chats nested
+  resources :dailies, only: [:index, :create, :edit, :update, :destroy] do
+    resources :chats, only: [:create]
+  end
+
+  # Routes pour les chats (pour show et messages)
+  resources :chats, only: [:show] do
     resources :messages, only: [:create]
-    resources :dailies, only: [:new, :create]
+    member do
+      post :generate_summary
+    end
   end
 
   get "up" => "rails/health#show", as: :rails_health_check

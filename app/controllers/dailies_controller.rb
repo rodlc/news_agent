@@ -1,43 +1,51 @@
 class DailiesController < ApplicationController
-  before_action :set_chat, only: [:new, :create]
+  before_action :authenticate_user!
+  before_action :set_daily, only: [:edit, :update, :destroy]
 
   def index
-    @dailies = Daily.order(created_at: :desc)
+    @dailies = current_user.dailies.order(created_at: :desc)
   end
 
   def new
-    @last_message = @chat.messages.last
-    
-    default_title = "Daily du #{Time.zone.now.strftime('%d/%m/%Y')} - Résumé de l'actualité"
-    
-    @daily = Daily.new(
-      summary: @last_message&.content,
-      title: default_title
-    )
+    # Pas besoin de formulaire, on redirige directement vers create
+    redirect_to dailies_path, method: :post
   end
 
   def create
-    @daily = Daily.new(daily_params)
-    
-    if @daily.save
-      # On déplace le chat vers ce nouveau daily
-      @chat.daily = @daily
-      @chat.save
-      
-      redirect_to @daily, notice: "Nouveau Daily créé et associé."
+    # Créer un chat sans Daily pour commencer à itérer
+    chat = Chat.create!(
+      name: "Discussion #{Time.zone.now.strftime('%H:%M')}",
+      daily: nil,
+      user: current_user
+    )
+
+    redirect_to chat_path(chat), notice: "Nouveau chat créé ! Commencez à discuter pour générer votre résumé."
+  end
+
+  def edit
+  end
+
+  def update
+    if @daily.update(daily_params)
+      redirect_to dailies_path, notice: "Résumé sauvegardé avec succès !"
     else
-      render :new, status: :unprocessable_entity
+      render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @daily.destroy
+    redirect_to dailies_path, notice: "Résumé supprimé"
   end
 
   private
 
-  def set_chat
-    @chat = Chat.find(params[:chat_id])
+  def set_daily
+    @daily = Daily.find(params[:id])
+    redirect_to root_path, alert: "Accès refusé" unless @daily.user == current_user
   end
 
   def daily_params
-    # On autorise :summary et :title
     params.require(:daily).permit(:summary, :title)
   end
 end

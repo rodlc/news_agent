@@ -1,0 +1,19 @@
+# Mettez true pour ajouter des reviewers
+addReviewers: true
+
+# Mettez false pour ne pas les assigner comme "Assignees" (responsables du ticket)
+addAssignees: false
+
+# Liste des pseudos GitHub de vos développeurs
+reviewers:
+  - rodlc
+  - JenniferAliceKiu
+  - Amelie-Mirc
+
+# Nombre de personnes à tirer au sort pour chaque PR
+numberOfReviewers: 1
+
+# Mots-clés pour ignorer l'assignation (ex: PR brouillon)
+skipKeywords:
+  - wip
+  - draft
