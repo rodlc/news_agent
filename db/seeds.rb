@@ -2,57 +2,57 @@ require 'faker'
 
 puts "Cleaning database..."
 
-#Chat.destroy_all
 Message.destroy_all
 Chat.destroy_all
 Daily.destroy_all
-
 User.destroy_all
 
-
 puts 'Populating database...'
+
 puts 'Creating users'
-
-
-users = User.new(
-    email: Faker::Internet.email,
-    password: 'password123'
-  )
-  users.save!
-puts 'Users done'
+user = User.create!(
+  email: Faker::Internet.email,
+  password: 'password123'
+)
+puts "Users done - Created: #{user.email}"
 
 puts 'Creating dailies'
+dailies = []
 10.times do
-  #daily = ''
-  dailies = Daily.new(
+  daily = Daily.create!(
     title: Faker::Lorem.sentence(word_count: 5),
-    summary: Faker::Lorem.paragraph(sentence_count: 3)
+    summary: Faker::Lorem.paragraph(sentence_count: 3),
+    user: user
   )
-  dailies.save!
-  end
-puts 'Dailies done'
+  dailies << daily
+end
+puts "Dailies done - Created #{dailies.count} dailies"
 
-### Put to singular @Rodolphe
-
-puts 'creating chats'
+puts 'Creating chats'
+chats = []
 10.times do
-  chats = Chat.new(
+  chat = Chat.create!(
     name: Faker::Lorem.words(number: 3).join(' '),
-    user: User.last,
-    daily: Daily.last
+    user: user,
+    daily: dailies.sample
   )
-  chats.save!
-  end
-puts 'Chats done'
-
+  chats << chat
+end
+puts "Chats done - Created #{chats.count} chats"
 
 puts 'Creating messages'
 25.times do
-  messages = Message.new(
+  Message.create!(
     content: Faker::Lorem.sentence(word_count: 10),
-    direction: ['incoming', 'outgoing'].sample,
-    chat: Chat.last
+    direction: ['user', 'assistant'].sample,
+    chat: chats.sample
   )
-  messages.save!
-  end
-puts 'Messages done'
+end
+puts "Messages done - Created #{Message.count} messages"
+
+puts "\n✅ Seed completed successfully!"
+puts "Created:"
+puts "  - #{User.count} user(s)"
+puts "  - #{Daily.count} daily/dailies"
+puts "  - #{Chat.count} chat(s)"
+puts "  - #{Message.count} message(s)"
